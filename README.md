@@ -1,4 +1,4 @@
-# @emolitor's AKA emulator's QMK Community Modules
+# emulator's (@emolitor) QMK Community Modules
 
 These rely on QMK Firmware 0.28.0 or later, merged in 2025q1.
 
