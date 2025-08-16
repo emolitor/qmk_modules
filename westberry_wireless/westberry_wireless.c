@@ -5,6 +5,9 @@
 #include "module.h"
 #include "smsg.h"
 
+uint8_t get_devs(void);
+void update_devs(uint8_t devs);
+
 static uint8_t wls_devs = DEVS_USB;
 
 void bluetooth_init(void) {
@@ -170,4 +173,62 @@ void wireless_devs_change(uint8_t old_devs, uint8_t new_devs, bool reset) {
 
 uint8_t wireless_get_current_devs(void) {
     return wls_devs;
+}
+
+void suspend_wakeup_init_westberry_wireless(void) {
+    wireless_devs_change(wireless_get_current_devs(), wireless_get_current_devs(), false);
+}
+
+void connection_indicators(void) {
+    switch (get_devs()) {
+        case DEVS_BT1: {
+            if (*md_getp_state() == MD_STATE_PAIRING) {
+                //blink(DEVS_BT1_INDEX, RGB_ADJ_WHITE, blink_fast);
+            } else if (*md_getp_state() != MD_STATE_CONNECTED) {
+                //blink(DEVS_BT1_INDEX, RGB_ADJ_WHITE, blink_slow);
+            } else {
+                rgb_matrix_set_color(DEVS_BT1_INDEX, RGB_ADJ_WHITE);
+            }
+        } break;
+        case DEVS_BT2: {
+            if (*md_getp_state() == MD_STATE_PAIRING) {
+                //blink(DEVS_BT2_INDEX, RGB_ADJ_WHITE, blink_fast);
+            } else if (*md_getp_state() != MD_STATE_CONNECTED) {
+                //blink(DEVS_BT2_INDEX, RGB_ADJ_WHITE, blink_slow);
+            } else {
+                rgb_matrix_set_color(DEVS_BT2_INDEX, RGB_ADJ_WHITE);
+            }
+        } break;
+        case DEVS_BT3: {
+            if (*md_getp_state() == MD_STATE_PAIRING) {
+                //blink(DEVS_BT3_INDEX, RGB_ADJ_WHITE, blink_fast);
+            } else if (*md_getp_state() != MD_STATE_CONNECTED) {
+                //blink(DEVS_BT3_INDEX, RGB_ADJ_WHITE, blink_slow);
+            } else {
+                rgb_matrix_set_color(DEVS_BT3_INDEX, RGB_ADJ_WHITE);
+            }
+        } break;
+        case DEVS_2G4: {
+            if (*md_getp_state() == MD_STATE_PAIRING) {
+                //blink(DEVS_2G4_INDEX, RGB_ADJ_WHITE, blink_fast);
+            } else if (*md_getp_state() != MD_STATE_CONNECTED) {
+                //blink(DEVS_2G4_INDEX, RGB_ADJ_WHITE, blink_slow);
+            } else {
+                rgb_matrix_set_color(DEVS_2G4_INDEX, RGB_ADJ_WHITE);
+            }
+        } break;
+    }
+}
+
+bool rgb_matrix_indicators_advanced_westberry_wireless(uint8_t led_min, uint8_t led_max) {
+    // When in Layer 1 show the UX
+    if (get_highest_layer(default_layer_state | layer_state) == 1) {
+        // Show active connection
+        connection_indicators();
+    } else if (get_devs() != DEVS_USB && *md_getp_state() != MD_STATE_CONNECTED) {
+        // Always show wireless connection indicators when not connected
+        connection_indicators();
+    }
+
+    return true;
 }
