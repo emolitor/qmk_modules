@@ -152,6 +152,10 @@ void bluetooth_send_mouse(report_mouse_t *report) {
     md_send_mouse((uint8_t *)&wls_report_mouse);
 }
 
+uint8_t wireless_get_current_devs(void) {
+    return wls_devs;
+}
+
 void wireless_devs_change_user(uint8_t old_devs, uint8_t new_devs, bool reset) __attribute__((weak));
 void wireless_devs_change_user(uint8_t old_devs, uint8_t new_devs, bool reset) {}
 
@@ -173,10 +177,6 @@ void wireless_devs_change(uint8_t old_devs, uint8_t new_devs, bool reset) {
     md_devs_change(new_devs, reset);
     wireless_devs_change_kb(old_devs, new_devs, reset);
     wireless_devs_change_user(old_devs, new_devs, reset);
-}
-
-uint8_t wireless_get_current_devs(void) {
-    return wls_devs;
 }
 
 void suspend_wakeup_init_westberry_wireless(void) {
