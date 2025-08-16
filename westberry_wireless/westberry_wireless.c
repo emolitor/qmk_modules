@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
+#include "connection.h"
 #include "module.h"
 #include "smsg.h"
 
@@ -238,6 +239,7 @@ bool rgb_matrix_indicators_advanced_westberry_wireless(uint8_t led_min, uint8_t 
 }
 
 void keyboard_post_init_westberry_wireless(void) {
+    connection_set_host(CONNECTION_HOST_BLUETOOTH);
     md_send_devctrl(MD_SND_CMD_DEVCTRL_FW_VERSION);   // get the module fw version.
     md_send_devctrl(MD_SND_CMD_DEVCTRL_SLEEP_BT_EN);  // timeout 30min to sleep in bt mode, enable
     md_send_devctrl(MD_SND_CMD_DEVCTRL_SLEEP_2G4_EN); // timeout 30min to sleep in 2.4g mode, enable
