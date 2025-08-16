@@ -1,6 +1,6 @@
 {
     "features": {
-        "wireless": true
+        "bluetooth": true
     },
     "maintainer": "emolitor",
     "module_name": "Westberry_Wireless"
