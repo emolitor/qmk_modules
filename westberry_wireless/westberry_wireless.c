@@ -156,7 +156,11 @@ void wireless_devs_change_user(uint8_t old_devs, uint8_t new_devs, bool reset) _
 void wireless_devs_change_user(uint8_t old_devs, uint8_t new_devs, bool reset) {}
 
 void wireless_devs_change_kb(uint8_t old_devs, uint8_t new_devs, bool reset) __attribute__((weak));
-void wireless_devs_change_kb(uint8_t old_devs, uint8_t new_devs, bool reset) {}
+void wireless_devs_change_kb(uint8_t old_devs, uint8_t new_devs, bool reset) {
+    if (get_devs() != wireless_get_current_devs()) {
+        update_devs(wireless_get_current_devs());
+    }
+}
 
 void wireless_devs_change(uint8_t old_devs, uint8_t new_devs, bool reset) {
     if ((wls_devs != new_devs) || reset) {
@@ -231,10 +235,4 @@ bool rgb_matrix_indicators_advanced_westberry_wireless(uint8_t led_min, uint8_t 
     }
 
     return true;
-}
-
-void wireless_devs_change_kb(uint8_t old_devs, uint8_t new_devs, bool reset) {
-    if (get_devs() != wireless_get_current_devs()) {
-        update_devs(wireless_get_current_devs());
-    }
 }
