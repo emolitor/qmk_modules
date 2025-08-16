@@ -163,6 +163,7 @@ void wireless_devs_change_user(uint8_t old_devs, uint8_t new_devs, bool reset) {
 void wireless_devs_change_kb(uint8_t old_devs, uint8_t new_devs, bool reset) __attribute__((weak));
 void wireless_devs_change_kb(uint8_t old_devs, uint8_t new_devs, bool reset) {
     if (get_devs() != wireless_get_current_devs()) {
+        connection_set_host(CONNECTION_HOST_USB);
         update_devs(wireless_get_current_devs());
     }
 }
