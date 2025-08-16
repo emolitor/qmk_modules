@@ -236,3 +236,10 @@ bool rgb_matrix_indicators_advanced_westberry_wireless(uint8_t led_min, uint8_t 
 
     return true;
 }
+
+void keyboard_post_init_westberry_wireless(void) {
+    md_send_devctrl(MD_SND_CMD_DEVCTRL_FW_VERSION);   // get the module fw version.
+    md_send_devctrl(MD_SND_CMD_DEVCTRL_SLEEP_BT_EN);  // timeout 30min to sleep in bt mode, enable
+    md_send_devctrl(MD_SND_CMD_DEVCTRL_SLEEP_2G4_EN); // timeout 30min to sleep in 2.4g mode, enable
+    wireless_devs_change(!get_devs(), get_devs(), false);
+}
