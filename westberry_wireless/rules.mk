@@ -5,4 +5,3 @@ OPT_DEFS += -DCH_CFG_USE_MAILBOXES -DCH_CFG_USE_MEMPOOLS -DCH_CFG_USE_OBJ_FIFOS
 
 SRC += module.c
 SRC += smsg.c
-#SRC += westberry_wireless.c

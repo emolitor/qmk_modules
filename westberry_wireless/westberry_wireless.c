@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
-#include "bluetooth.h"
 #include "module.h"
 #include "smsg.h"
 
