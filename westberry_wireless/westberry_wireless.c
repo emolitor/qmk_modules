@@ -5,6 +5,10 @@
 #include "connection.h"
 #include "module.h"
 
+#ifndef MD_BT_NAME
+#    define MD_BT_NAME "QMK BT$"
+#endif
+
 typedef union {
     uint32_t raw;
     struct {
@@ -196,7 +200,7 @@ void keyboard_post_init_westberry_wireless(void) {
 
 bool process_record_westberry_wireless(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(0, KC_1): {
+        case LT(0, BT_PRF1): {
             if (record->tap.count && record->event.pressed) {
                 wireless_devs_change(DEVS_BT1, false);
             } else if (record->event.pressed && *md_getp_state() != MD_STATE_PAIRING) {
@@ -204,7 +208,7 @@ bool process_record_westberry_wireless(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         }
-        case LT(0, KC_2): {
+        case LT(0, BT_PRF2): {
             if (record->tap.count && record->event.pressed) {
                 wireless_devs_change(DEVS_BT2, false);
             } else if (record->event.pressed && *md_getp_state() != MD_STATE_PAIRING) {
@@ -212,7 +216,7 @@ bool process_record_westberry_wireless(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         }
-        case LT(0, KC_3): {
+        case LT(0, BT_PRF3): {
             if (record->tap.count && record->event.pressed) {
                 wireless_devs_change(DEVS_BT3, false);
             } else if (record->event.pressed && *md_getp_state() != MD_STATE_PAIRING) {
@@ -220,7 +224,23 @@ bool process_record_westberry_wireless(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         }
-        case LT(0, KC_4): {
+        case LT(0, BT_PRF4): {
+            if (record->tap.count && record->event.pressed) {
+                wireless_devs_change(DEVS_BT4, false);
+            } else if (record->event.pressed && *md_getp_state() != MD_STATE_PAIRING) {
+                wireless_devs_change(DEVS_BT4, true);
+            }
+            return false;
+        }
+        case LT(0, BT_PRF5): {
+            if (record->tap.count && record->event.pressed) {
+                wireless_devs_change(DEVS_BT5, false);
+            } else if (record->event.pressed && *md_getp_state() != MD_STATE_PAIRING) {
+                wireless_devs_change(DEVS_BT5, true);
+            }
+            return false;
+        }
+        case LT(0, OU_2P4G): {
             if (record->tap.count && record->event.pressed) {
                 wireless_devs_change(DEVS_2G4, false);
             } else if (record->event.pressed && *md_getp_state() != MD_STATE_PAIRING) {
